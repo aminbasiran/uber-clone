@@ -6,23 +6,12 @@ import { useEffect } from "react";
 import { useRouter } from "expo-router";
 
 const index = () => {
+    const { user } = useGlobalStore();
+    console.log("index", user);
+    if (user) {
+        return <Redirect href={"/(home)/home"} />;
+    }
+    return <Redirect href="/(auth)/onboarding" />;
+};
 
-  const {user} = useGlobalStore()
-
-  if (user) {
-    return <Redirect href={"/(home)/home"} />;
-  }
-  return <Redirect href="/(auth)/onboarding" />;
-  // useEffect(() => {
-  //   if (user) {
-  //     router.push('/(home)/home');
-  //   } else {
-  //     router.push('/(auth)/onboarding');
-  //   }
-  // }, [user]);
-  
-  return null; 
-  
-}
-
-export default index
+export default index;
