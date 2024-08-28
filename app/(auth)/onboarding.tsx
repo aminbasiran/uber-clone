@@ -1,22 +1,31 @@
-import { View, Text, SafeAreaView} from 'react-native'
-import React from 'react'
-import { TouchableOpacity } from 'react-native'
-import { router } from 'expo-router'
+import { View, Text, SafeAreaView } from "react-native";
+import React from "react";
+import { TouchableOpacity } from "react-native";
+import { router } from "expo-router";
+import CustomButton from "@/components/CustomButton";
 
 const Onboarding = () => {
-  return (
-    <SafeAreaView className='h-full w-full items-center flex flex-col justify-center'>
-       <Text className='text-md'>You see this screen because you are not authenticated.</Text>
-      <View>
-        <TouchableOpacity onPress={()=>router.push("/(auth)/register")}>
-            <Text>Sign-up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>router.push("/(auth)/login")}>
-            <Text>Sign-in</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  )
-}
+    return (
+        <SafeAreaView className="h-full w-full items-center flex flex-col justify-center">
+            <Text className="text-md">
+                You see this screen because you are not authenticated.
+            </Text>
+            <View className="flex flex-row gap-3">
+                <CustomButton
+                    variant="primary"
+                    onPress={() => router.push("/(auth)/login")}
+                >
+                    Sign-in
+                </CustomButton>
+                <CustomButton
+                    variant="warning"
+                    onPress={() => router.push("/(auth)/register")}
+                >
+                    Sign-up
+                </CustomButton>
+            </View>
+        </SafeAreaView>
+    );
+};
 
-export default Onboarding
+export default Onboarding;

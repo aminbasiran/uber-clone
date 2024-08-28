@@ -2,16 +2,25 @@ import { Text, View } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { useGlobalStore } from "@/components/context/ContextProvider";
 import { Redirect } from "expo-router";
-import { useEffect } from "react";
-import { useRouter } from "expo-router";
+import useAuth from "@/hooks/useAuth";
 
 const index = () => {
     const { user } = useGlobalStore();
-    console.log("index", user);
-    if (user) {
-        return <Redirect href={"/(home)/home"} />;
+    const loading = useAuth();
+
+    if (loading) {
+        return (
+            <View>
+                <Text>...Loading</Text>
+            </View>
+        );
     }
-    return <Redirect href="/(auth)/onboarding" />;
+
+    return user ? (
+        <Redirect href={"/(home)/home"} />
+    ) : (
+        <Redirect href={"/(auth)/onboarding"} />
+    );
 };
 
 export default index;

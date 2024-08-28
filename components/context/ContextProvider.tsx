@@ -1,48 +1,58 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { router } from 'expo-router';
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { router } from "expo-router";
 
 interface MyComponentProps {
-  children: ReactNode;
+    children: ReactNode;
 }
 
-type UserType = {} | boolean | any;
+type TUser = string;
 
 interface DefaultContextValueType {
-  user: UserType;
-  handleSetData: () => void;
+    signIn: (user: TUser) => void;
+    signOut: () => void;
+    isLoggedIn: boolean;
+    user: string | null;
 }
 
 // Initialize default values for context, leaving functions as placeholders
 const defaultContextValue: DefaultContextValueType = {
-  user: true,
-  handleSetData: () => {}, // Placeholder function
+    signIn: () => null,
+    signOut: () => null,
+    isLoggedIn: false,
+    user: null,
 };
 
 const GlobalStore = createContext<DefaultContextValueType | undefined>(
-  defaultContextValue
+    defaultContextValue,
 );
 
 const GlobalProvider: React.FC<MyComponentProps> = ({ children }) => {
-  const [user, setUser] = useState<UserType>(false);
+    const [user, setUser] = useState<string | null>(null);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  const handleSetData = () => {
-    setUser(true);
-    router.replace('/');
-  };
+    const signIn = (user: TUser) => {
+        setUser(user);
+        setIsLoggedIn(true);
+    };
 
-  return (
-    <GlobalStore.Provider value={{ user, handleSetData }}>
-      {children}
-    </GlobalStore.Provider>
-  );
+    const signOut = () => {
+        setUser(null);
+        setIsLoggedIn(false);
+    };
+
+    return (
+        <GlobalStore.Provider value={{ signIn, signOut, user, isLoggedIn }}>
+            {children}
+        </GlobalStore.Provider>
+    );
 };
 
 export const useGlobalStore = () => {
-  const store = useContext(GlobalStore);
-  if (store === undefined) {
-    throw new Error('useGlobalStore must be used within a GlobalProvider');
-  }
-  return store;
+    const store = useContext(GlobalStore);
+    if (store === undefined) {
+        throw new Error("useGlobalStore must be used within a GlobalProvider");
+    }
+    return store;
 };
 
 export default GlobalProvider;
