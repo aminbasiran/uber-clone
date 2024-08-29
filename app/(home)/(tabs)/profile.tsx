@@ -12,7 +12,6 @@ const Profile = () => {
     const handleLogout = () => {
         signOut();
         _removeData();
-        //setPreferences to default here
         _removePreferences();
         router.replace("/");
     };

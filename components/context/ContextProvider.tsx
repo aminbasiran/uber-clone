@@ -1,3 +1,4 @@
+import { _removePreferences } from "@/lib/preferences";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface MyComponentProps {
@@ -49,6 +50,7 @@ const GlobalProvider: React.FC<MyComponentProps> = ({ children }) => {
     const signOut = () => {
         setUser(null);
         setIsLoggedIn(false);
+        setUserPreferences({});
     };
 
     return (
