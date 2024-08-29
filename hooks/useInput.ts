@@ -3,7 +3,7 @@ import { useState } from "react";
 type ValueTypes = string;
 type LoadingTypes = boolean;
 type ErrorTypes = string | null;
-type ValidateTypes = any; //for now
+type ValidateTypes = (value: string) => string | null; //for now
 
 interface UseInputReturnTypes {
     value: ValueTypes;
@@ -22,9 +22,16 @@ export const useInput = (
     const [isLoading, setIsLoading] = useState<LoadingTypes>(false);
 
     const handleChange = (text: string) => {
-        setValue(text);
-        console.log(text);
-        // validate(text)
+        if (validate) {
+            const validationError = validate(text);
+            if (validationError) {
+                setError(validationError); // Set error if validation fails
+                return; // Do not update the value if there's an error
+            }
+        }
+
+        setValue(text); // Update the value if validation passes
+        setError(null); // Clear the error if validation passes
     };
 
     const setReset = () => {

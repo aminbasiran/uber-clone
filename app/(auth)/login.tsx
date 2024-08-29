@@ -6,12 +6,13 @@ import CustomButton from "@/components/CustomButton";
 import { useInput } from "@/hooks/useInput";
 import InputField from "@/components/InputField";
 import React from "react";
+import { validateEmail, validatePassword } from "@/utils/validate";
 
 const USER = "amin";
 
 const Login = () => {
-    const email = useInput("");
-    const password = useInput("");
+    const email = useInput("", validateEmail);
+    const password = useInput("", validatePassword);
 
     const { signIn } = useGlobalStore();
 
@@ -32,6 +33,9 @@ const Login = () => {
                         value={email.value}
                         handleChangeText={email.handleChange}
                     />
+                    <Text className="text-right text-red-500">
+                        {email.error}
+                    </Text>
                 </View>
                 <View>
                     <Text className="font-bold">Password</Text>
@@ -41,6 +45,9 @@ const Login = () => {
                         value={password.value}
                         handleChangeText={password.handleChange}
                     />
+                    <Text className="text-right text-red-500">
+                        {password.error}
+                    </Text>
                 </View>
             </View>
 
