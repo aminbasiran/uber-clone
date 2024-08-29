@@ -5,8 +5,15 @@ import { cn } from "@/utils/cn";
 interface CustomButtonProps extends TouchableOpacityProps {
     classNames?: string;
     children?: React.ReactNode;
-    variant?: "primary" | "secondary" | "success" | "danger" | "warning";
-    onPress: () => void;
+    variant?:
+        | "primary"
+        | "secondary"
+        | "success"
+        | "danger"
+        | "warning"
+        | "black";
+    onPress?: () => void;
+    textStyles?: string;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -14,6 +21,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     classNames,
     variant = "primary",
     onPress,
+    textStyles,
     ...props
 }) => {
     const baseStyles = "p-4 rounded-md";
@@ -23,6 +31,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         success: "bg-green-500",
         danger: "bg-red-500",
         warning: "bg-yellow-500",
+        black: "bg-black",
         // Add more variants as needed
     };
 
@@ -30,7 +39,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
     return (
         <TouchableOpacity {...props} className={buttonStyles} onPress={onPress}>
-            <Text>{children}</Text>
+            <Text className={textStyles}>{children}</Text>
         </TouchableOpacity>
     );
 };

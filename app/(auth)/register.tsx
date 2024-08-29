@@ -1,18 +1,50 @@
-import { Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView, View, TouchableOpacity } from "react-native";
 import React from "react";
+import InputField from "@/components/InputField";
+import { useInput } from "@/hooks/useInput";
+import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
 
 const Register = () => {
+    const email = useInput("");
+    const username = useInput("");
+    const password = useInput("");
     return (
         <SafeAreaView className="h-full w-full items-center flex flex-col justify-center">
             <Text className="font-bold text-4xl">Register page</Text>
-            <Text>For this purpose, this screen is just a placeholder.</Text>
-            <Text className="text-center">
-                In real world, you must create user credentials first before you
-                can sign-in.
-            </Text>
+            <View className="w-full flex flex-col gap-3">
+                <View>
+                    <Text className="font-bold">Username</Text>
+                    <InputField
+                        placeholder="example123"
+                        value={username.value}
+                        handleChangeText={username.handleChange}
+                    />
+                </View>
+                <View>
+                    <Text className="font-bold">Email</Text>
+                    <InputField
+                        placeholder="example@gmail.com"
+                        value={email.value}
+                        handleChangeText={email.handleChange}
+                    />
+                </View>
+                <View>
+                    <Text className="font-bold">Password</Text>
+                    <InputField
+                        label="Password"
+                        placeholder="example123"
+                        value={password.value}
+                        handleChangeText={password.handleChange}
+                    />
+                </View>
+            </View>
+            <CustomButton textStyles="text-white font-bold" variant="black">
+                <Text>Register</Text>
+            </CustomButton>
+
             <TouchableOpacity onPress={() => router.push("/(auth)/login")}>
-                <Text className="font-bold">Go to login page</Text>
+                <Text>Already have an account? Login</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );
