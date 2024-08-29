@@ -6,6 +6,7 @@ import { _storeData } from "@/lib/auth";
 import CustomButton from "@/components/CustomButton";
 
 const USER = "amin";
+const test = "test";
 
 const Login = () => {
     const { signIn } = useGlobalStore();
