@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
 import { router } from "expo-router";
 

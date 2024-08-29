@@ -1,9 +1,10 @@
-import { Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView } from "react-native";
 import React from "react";
 import { useGlobalStore } from "@/components/context/ContextProvider";
 import { _removeData } from "@/lib/auth";
 import { router } from "expo-router";
 import CustomButton from "@/components/CustomButton";
+import { _removePreferences } from "@/lib/preferences";
 
 const Profile = () => {
     const { signOut } = useGlobalStore();
@@ -11,6 +12,8 @@ const Profile = () => {
     const handleLogout = () => {
         signOut();
         _removeData();
+        //setPreferences to default here
+        _removePreferences();
         router.replace("/");
     };
     return (

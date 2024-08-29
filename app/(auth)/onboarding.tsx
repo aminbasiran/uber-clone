@@ -1,13 +1,12 @@
 import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import CustomButton from "@/components/CustomButton";
 
 const Onboarding = () => {
     return (
         <SafeAreaView className="h-full w-full items-center flex flex-col justify-center">
-            <Text className="text-md">
+            <Text className="text-md font-bold">
                 You see this screen because you are not authenticated.
             </Text>
             <View className="flex flex-row gap-3">
