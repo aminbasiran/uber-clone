@@ -1,31 +1,26 @@
-import { _removePreferences } from "@/lib/preferences";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface MyComponentProps {
     children: ReactNode;
 }
 
-type TUser = string;
-
 interface DefaultContextValueType {
-    signIn: (user: TUser) => void;
-    signOut: () => void;
-    isLoggedIn: boolean;
-    user: string | null;
-    userPreferences: Record<string, string>;
+    user: Record<string, string> | null;
+    userPreferences: Record<string, string> | null;
     setUserPreferences: React.Dispatch<
         React.SetStateAction<Record<string, string>>
+    >;
+    setUser: React.Dispatch<
+        React.SetStateAction<Record<string, string> | null>
     >;
 }
 
 // Initialize default values for context, leaving functions as placeholders
 const defaultContextValue: DefaultContextValueType = {
-    signIn: () => null,
-    signOut: () => null,
-    isLoggedIn: false,
     user: null,
-    userPreferences: {},
-    setUserPreferences: () => null,
+    userPreferences: null,
+    setUserPreferences: () => {}, // No-op function
+    setUser: () => {}, // No-op function
 };
 
 const GlobalStore = createContext<DefaultContextValueType | undefined>(
@@ -33,8 +28,7 @@ const GlobalStore = createContext<DefaultContextValueType | undefined>(
 );
 
 const GlobalProvider: React.FC<MyComponentProps> = ({ children }) => {
-    const [user, setUser] = useState<string | null>(null);
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [user, setUser] = useState<Record<string, string> | null>(null);
     const [userPreferences, setUserPreferences] = useState<
         Record<string, string>
     >({
@@ -42,24 +36,11 @@ const GlobalProvider: React.FC<MyComponentProps> = ({ children }) => {
         notification: "disabled",
     });
 
-    const signIn = (user: TUser) => {
-        setUser(user);
-        setIsLoggedIn(true);
-    };
-
-    const signOut = () => {
-        setUser(null);
-        setIsLoggedIn(false);
-        setUserPreferences({});
-    };
-
     return (
         <GlobalStore.Provider
             value={{
-                signIn,
-                signOut,
                 user,
-                isLoggedIn,
+                setUser,
                 userPreferences,
                 setUserPreferences,
             }}

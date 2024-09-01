@@ -31,3 +31,10 @@ export const validateEmail = (email: string): string | null => {
     }
     return null;
 };
+
+export const validateClerkCode = (code: string): string | null => {
+    if (code.length < 6) {
+        return "Cleark verification code must be 6 characters long.";
+    }
+    return null;
+};

@@ -1,25 +1,33 @@
-import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
-import { useGlobalStore } from "@/components/context/ContextProvider";
+import {
+    Text,
+    View,
+    SafeAreaView,
+    TouchableOpacity,
+    Alert,
+} from "react-native";
+// import { useGlobalStore } from "@/components/context/ContextProvider";
 import { router } from "expo-router";
-import { _storeData } from "@/lib/auth";
+// import { _storeData } from "@/lib/auth";
 import CustomButton from "@/components/CustomButton";
 import { useInput } from "@/hooks/useInput";
 import InputField from "@/components/InputField";
 import React from "react";
 import { validateEmail, validatePassword } from "@/utils/validate";
-
-const USER = "amin";
+import { useClerkService } from "@/hooks/useClerk";
 
 const Login = () => {
     const email = useInput("", validateEmail);
     const password = useInput("", validatePassword);
 
-    const { signIn } = useGlobalStore();
+    const { onSignInPress } = useClerkService();
 
-    const handleLogin = (x: string) => {
-        signIn(x);
-        _storeData(x);
-        router.replace("/");
+    const handleLogin = async () => {
+        if (!email.value || !password.value) {
+            Alert.alert("Please enter valid email and password to log in");
+            return;
+        }
+        await onSignInPress(email.value, password.value);
+        router.push("/");
     };
 
     return (
@@ -54,7 +62,7 @@ const Login = () => {
             <CustomButton
                 textStyles="text-white font-bold"
                 variant="black"
-                onPress={() => handleLogin(USER)}
+                onPress={handleLogin}
             >
                 <Text>Log in</Text>
             </CustomButton>

@@ -33,7 +33,6 @@ const Settings = () => {
 
     return (
         <SafeAreaView>
-            {/* <Text className="text-center text-2xl font-bold">Preferences</Text> */}
             <View>
                 <Text>Dark Mode</Text>
                 <Switch

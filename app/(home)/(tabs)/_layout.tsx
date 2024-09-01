@@ -1,29 +1,34 @@
 import React from "react";
 import { Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 const HomeLayout = () => {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: "red",
+                tabBarShowLabel: false,
+                tabBarActiveTintColor: "green",
                 tabBarStyle: {
                     borderRadius: 50,
                     paddingBottom: 0, // ios only
                     overflow: "hidden",
                     marginHorizontal: 20,
                     marginBottom: 20,
-                    height: 78,
+                    height: 60,
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    flexDirection: "row",
-                    position: "absolute",
                 },
             }}
         >
             <Tabs.Screen
                 name="home"
                 options={{
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <Ionicons name="home" size={size} color={color} />
+                        );
+                    },
                     headerShown: false,
                     tabBarLabel: "Home",
                     tabBarLabelStyle: {
@@ -36,7 +41,31 @@ const HomeLayout = () => {
                 name="profile"
                 options={{
                     headerShown: false,
-                    tabBarLabel: "Profile",
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <Ionicons
+                                name="person-circle"
+                                size={size}
+                                color={color}
+                            />
+                        );
+                    },
+                }}
+            />
+            <Tabs.Screen
+                name="settings"
+                options={{
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <Ionicons
+                                name="settings"
+                                size={size}
+                                color={color}
+                            />
+                        );
+                    },
+                    headerShown: false,
+                    tabBarLabel: "Settings",
                     tabBarLabelStyle: {
                         fontSize: 13,
                         fontWeight: "bold",
@@ -44,8 +73,17 @@ const HomeLayout = () => {
                 }}
             />
             <Tabs.Screen
-                name="settings"
+                name="message"
                 options={{
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <Ionicons
+                                name="chatbox"
+                                size={size}
+                                color={color}
+                            />
+                        );
+                    },
                     headerShown: false,
                     tabBarLabel: "Settings",
                     tabBarLabelStyle: {

@@ -1,19 +1,13 @@
-import { View, Text } from "react-native";
+import { View, Text, Image, Switch } from "react-native";
 import React from "react";
+import theme from "../assets/icons/theme.png";
 
-interface OptionPropsTypes {
-    title: string;
-    value: string | boolean;
-}
-
-const Option: React.FC<OptionPropsTypes> = ({ title, value, ...props }) => {
+const Option = () => {
     return (
-        <View
-            {...props}
-            className="w-full h-12 flex flex-row justify-between items-center p-2"
-        >
-            <Text className="font-bold">{title}</Text>
-            <Text>{value}</Text>
+        <View className="w-full flex flex-row justify-start items-center p-3">
+            <Image resizeMode="contain" className="w-5 h-5" source={theme} />
+            <Text className="pl-4">Dark mode</Text>
+            <Switch className="ml-auto" />
         </View>
     );
 };

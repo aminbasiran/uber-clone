@@ -22,6 +22,7 @@ export const useInput = (
     const [isLoading, setIsLoading] = useState<LoadingTypes>(false);
 
     const handleChange = (text: string) => {
+        console.log(text);
         if (validate) {
             const validationError = validate(text);
             if (validationError) {
