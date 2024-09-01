@@ -11,6 +11,7 @@ import { useInput } from "@/hooks/useInput";
 const Profile = () => {
     const { onSignOutPress } = useClerkService();
     const { user } = useUser();
+    console.log("testing branch");
 
     const fullname = useInput("");
     const username = useInput("");
